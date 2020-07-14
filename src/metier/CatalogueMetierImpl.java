@@ -102,7 +102,7 @@ public class CatalogueMetierImpl implements ICatalogueMetier{
 		}
 	
 		@Override
-		public void updateProduit(Produit produit) {
+		public boolean updateProduit(Produit produit) {
 			Connection conn = SingletonConnection.getConnection();
 			try {
 				PreparedStatement ps = conn.prepareStatement("update  produits set Designation=?, Prix=?,Quantite=? where Ref_Prod =?");
@@ -113,9 +113,11 @@ public class CatalogueMetierImpl implements ICatalogueMetier{
 				
 				ps.executeUpdate();
 				ps.close();
+				return true;
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 	

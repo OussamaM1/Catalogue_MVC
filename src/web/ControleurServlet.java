@@ -36,7 +36,7 @@ public class ControleurServlet extends HttpServlet {
 				model.setProduits(metier.listProduits());
 				if(action!=null)
 				{
-					if(action.equals("chercher"))
+					if(action.equals("rechercher"))
 					{
 						model.setMotCle(request.getParameter("motCle"));
 						List<Produit> produits = metier.produitParId(model.getMotCle());
@@ -49,7 +49,7 @@ public class ControleurServlet extends HttpServlet {
 							model.setSucess("Le produit a été supprimé!");
 						model.setProduits(metier.listProduits());
 					}
-					else if(action.equals("ajouter"))
+					else if(action.equals("save") && request.getParameter("saveORediter").equals("save"))
 					{
 						try {
 						model.getProduit().setReference(request.getParameter("reference"));
@@ -59,11 +59,36 @@ public class ControleurServlet extends HttpServlet {
 						if(metier.addProduit(model.getProduit()))
 							model.setSucess("Le produit a été ajouté !");
 						model.setProduits(metier.listProduits());
+						doGet(request, response);
 						}
 						catch(Exception e)
 						{
 							model.setError("Enregistrement Invalide !");
 							
+						}
+					}
+					else if(action.equals("edit"))
+					{
+						
+						model.setProduit(metier.getProduit(request.getParameter("ref")));
+						model.setSaveORediter("edit");
+					}
+					else if(action.equals("save") && request.getParameter("saveORediter").equals("edit"))
+					{
+						
+						try {
+						Produit updatedProduit = new Produit();
+						updatedProduit.setReference(request.getParameter("reference"));
+						updatedProduit.setDesignation(request.getParameter("designation"));
+						updatedProduit.setPrix(Double.parseDouble(request.getParameter("prix")));
+						updatedProduit.setQuantite((Integer.parseInt(request.getParameter("quantite"))));
+						if(metier.updateProduit(updatedProduit))
+							model.setSucess("Le produit a été modifié!");
+						model.setProduits(metier.listProduits());
+						}
+						catch(Exception e)
+						{
+							model.setError("Enregistrement Invalide !");
 						}
 					}
 				}

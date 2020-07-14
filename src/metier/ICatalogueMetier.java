@@ -7,7 +7,7 @@ public interface ICatalogueMetier {
 		public List<Produit> listProduits();
 		public List<Produit> produitParId(String id);
 		public Produit getProduit(String ref);
-		public void updateProduit(Produit produit);
+		public boolean updateProduit(Produit produit);
 		public boolean deleteProduit(String ref);
 		
 }

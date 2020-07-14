@@ -1,4 +1,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="web.ProduitModel"%>
+<%
+ProduitModel model=new ProduitModel();
+if(request.getAttribute("model") != null){
+	 model=(ProduitModel)request.getAttribute("model");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +27,9 @@
 		
 			<form action="produit" method="post" class="form-inline col-sm mb-4 mt-4">
 					<div class="form-group row mb-2" >
-						<label for="motCle"  class="form-label mx-4 col-form-label-lg">Chercher un produit :</label>
+						<label for="motCle"  class="form-label mx-4 col-form-label-lg">Rehercher un produit :</label>
 						<input type="text" id="motCle" name="motCle" value="${model.motCle }" class="form-control form-control-lg"  />
-						<button type="submit" value="chercher"  name="action" class="btn btn-outline-primary ml-4 mt-0 btn-lg">Chercher</button>
+						<button type="submit" value="rechercher"  name="action" class="btn btn-outline-primary ml-4 mt-0 btn-lg">Rechercher</button>
 					</div>
 						
 			</form>
@@ -54,9 +61,17 @@
 		  <div class="card-body"> 
 		    <div>
 			<form action="produit" method="post">
+						<input type="hidden" name="saveORediter" value="${model.getSaveORediter()}"/>
 						<div class="form-group">
 						<label>Reference : </label>
-						<input class="form-control" type="text" name="reference"  value="${ model.produit.reference}"/>						
+						<c:choose>
+							<c:when test="${model.getSaveORediter() == 'save'}">
+									<input class="form-control" type="text" name="reference"  value="${ model.produit.reference}"/>	
+							</c:when>
+							<c:otherwise>
+									<input class="form-control" type="text" name="reference"  value="${ model.produit.reference}" readonly/>	
+							</c:otherwise>
+						</c:choose>					
 						</div>
 						<div class="form-group">
 						<label>Designation : </label>
@@ -64,14 +79,14 @@
 						</div>
 						<div class="form-group">
 						<label>Prix : </label>
-						<input class="form-control" type="text" name="prix"  />						
+						<input class="form-control" type="text" name="prix"  value="${model.produit.prix != 0 ?  model.produit.prix : ''}" />						
 						</div>
 						<div class="form-group">
 						<label>Quantité : </label>
-						<input class="form-control" type="text" name="quantite"  />						
+						<input class="form-control" type="text" name="quantite"  value="${model.produit.quantite!=0 ? model.produit.quantite : '' }" />						
 						</div>
 
-						<input type="submit" value="ajouter"  name="action" class="btn btn-outline-success col-sm-12"/>
+						<button type="submit" value="save"  name="action" class="btn btn-outline-success col-sm-12">Enregistrer</button>
 			</form>
 		  </div>
 		</div>
@@ -92,7 +107,7 @@
 						<td>${produit.prix} DH</td>
 						<td>${produit.quantite}</td>
 						<td><a href="javascript:confirmer('produit?action=delete&ref=${produit.reference }')" class="badge badge-danger">Supprimer</a></td>
-						<td><a href="" class="badge badge-warning">Editer</a></td>
+						<td><a href="produit?action=edit&ref=${produit.reference}" class="badge badge-warning">Editer</a></td>
 					</tr>
 				</c:forEach>
 			</table>

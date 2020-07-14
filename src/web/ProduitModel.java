@@ -9,8 +9,16 @@ public class ProduitModel {
 		private List<Produit> produits = new ArrayList<Produit>();
 		private String error;
 		private String sucess;
+		private String saveORediter="save";
+		
 		
 		//Getters and Setters
+		public String getSaveORediter() {
+			return saveORediter;
+		}
+		public void setSaveORediter(String saveORediter) {
+			this.saveORediter = saveORediter;
+		}
 		public String getMotCle() {
 			return motCle;
 		}
