@@ -2,7 +2,8 @@
 
 ## Introduction
 
-Application web JEE de type CRUD Gestion de produits.les composants utilisés Web Servlet, JSP, JSTL, bootstrap, Mysql.
+Application web JEE de type CRUD Gestion de produits.
+Composants utilisés : Web Servlet, JSP, JSTL, bootstrap, Mysql.
 
 ## Screenshots
 
