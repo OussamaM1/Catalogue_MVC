@@ -59,7 +59,6 @@ public class ControleurServlet extends HttpServlet {
 						if(metier.addProduit(model.getProduit()))
 							model.setSucess("Le produit a été ajouté !");
 						model.setProduits(metier.listProduits());
-						doGet(request, response);
 						}
 						catch(Exception e)
 						{

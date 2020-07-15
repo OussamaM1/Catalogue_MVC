@@ -56,7 +56,15 @@ if(request.getAttribute("model") != null){
 		<div class="col-sm-4 mb-3">
 		<div class="card">
 		  <div class="card-header">
-		    <h5>Nouveau / modifier produit :</h5>
+		  <c:choose>
+			<c:when test="${model.getSaveORediter() == 'save'}">
+				<h5>Ajouter un produit :</h5>
+			</c:when>
+			<c:otherwise>
+				 <h5>Modifier le  produit :</h5>
+			</c:otherwise>
+		</c:choose>
+		   
 		  </div>
 		  <div class="card-body"> 
 		    <div>
