@@ -4,6 +4,7 @@
 
 Application web JEE de type CRUD Gestion de produits.
 Composants utilisés : Web Servlet, JSP, JSTL, bootstrap, Mysql.
+Architecture employée MVC : Modèle,Vue,Controlleur.
 
 ## Screenshots
 
